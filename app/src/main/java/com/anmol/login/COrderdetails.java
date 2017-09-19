@@ -1,11 +1,11 @@
 package com.anmol.login;
 
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -31,7 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class Orderdetails extends AppCompatActivity {
+public class COrderdetails extends AppCompatActivity {
     String oid;
     Button buy;
     TextView ddate,dadd,ddes;
@@ -61,9 +61,12 @@ public class Orderdetails extends AppCompatActivity {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                movePres(from.child(oid),todata.child(oid));
-                from.child(oid).removeValue();
-                finish();
+                Dialog dialog = new Dialog(COrderdetails.this);
+                dialog.setContentView(R.layout.chat);
+                /*
+                Your code here
+                 */
+                dialog.show();
             }
         });
         from.child(oid).addValueEventListener(new ValueEventListener() {
@@ -99,7 +102,7 @@ public class Orderdetails extends AppCompatActivity {
                         @Override
                         public void onItemClick(int pos) {
                             if((medias.get(pos).getType()).contains("image")){
-                                Glide.with(Orderdetails.this).load(medias.get(pos).getUrl()).into(previewimg);
+                                Glide.with(COrderdetails.this).load(medias.get(pos).getUrl()).into(previewimg);
                                 source = medias.get(pos).getPresuri();
                                 edituri = Uri.parse(medias.get(pos).getPresuri());
                                 edittype = medias.get(pos).getType();
@@ -114,7 +117,7 @@ public class Orderdetails extends AppCompatActivity {
                             }
                         }
                     };
-                    madapter = new MyAdapter(Orderdetails.this,medias,itemClickListener);
+                    madapter = new MyAdapter(COrderdetails.this,medias,itemClickListener);
                     madapter.notifyDataSetChanged();
                     rv.setAdapter(madapter);
 
@@ -131,30 +134,7 @@ public class Orderdetails extends AppCompatActivity {
         }
 
     }
-    private void movePres(final DatabaseReference fromPath, final DatabaseReference toPath) {
-        fromPath.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                toPath.setValue(dataSnapshot.getValue(), new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {
-                        if (firebaseError != null) {
-                            System.out.println("Copy failed");
-                        } else {
-                            System.out.println("Success");
 
-                        }
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
     void generateImageFromPdf(Uri pdfUri) {
         int pageNumber = 0;
         PdfiumCore pdfiumCore = new PdfiumCore(this);

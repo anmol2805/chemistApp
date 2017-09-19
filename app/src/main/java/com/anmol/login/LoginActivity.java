@@ -53,11 +53,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        if (auth.getCurrentUser() != null) {
-            session.createLoginSession(auth.getCurrentUser().getEmail());
-            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
-            finish();
-        }
 
         // set the view now
         setContentView(R.layout.activity_login);
