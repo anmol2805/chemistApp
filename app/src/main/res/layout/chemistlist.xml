@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#f9f6f6"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        app:cardCornerRadius="@dimen/activity_vertical_margin"
+        app:cardUseCompatPadding="true" >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IIIT Medicose"
+                android:id="@+id/shopname"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:padding="5dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20%"
+                android:textColor="#f90101"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:padding="5dp"
+                android:background="#f9f6f6"
+                android:textStyle="italic"
+                />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@mipmap/open"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/status"
+                />
+            <TextView
+                android:textStyle="italic"
+                android:textColor="#000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shopname"
+                android:text="Priyadarshani Colony,Airport Road,Jabalpur"
+                android:padding="5dp"
+                />
+            <ImageView
+
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@mipmap/worktime"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:id="@+id/worktime"
+                />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/worktime"
+                android:layout_toRightOf="@+id/worktime"
+                android:layout_toEndOf="@+id/worktime"
+                android:text="10.00 A.M. to 11.00 P.M."
+                android:layout_marginBottom="4dp"
+                android:textStyle="italic"
+                />
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_above="@+id/worktime"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:src="@mipmap/delt"
+                android:id="@+id/deltime"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/deltime"
+                android:layout_toRightOf="@+id/deltime"
+                android:layout_toEndOf="@+id/deltime"
+                android:text="1-2 days"
+                android:textStyle="italic"
+                android:layout_marginBottom="4dp"
+                android:id="@+id/time"
+                />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignBottom="@+id/deltime"
+                android:layout_toRightOf="@+id/time"
+                android:layout_toEndOf="@+id/time"
+                android:src="@mipmap/radius"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/rad"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/deltime"
+                android:layout_toRightOf="@+id/rad"
+                android:layout_toEndOf="@+id/rad"
+                android:text="50 KM"
+                android:layout_marginBottom="4dp"
+                android:id="@+id/radius"
+                android:textStyle="italic"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@mipmap/goldstar"
+                android:layout_marginRight="5dp"
+                android:background="@color/colorPrimary"
+                android:text="4.3"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:padding="5dp"
+                />
+
+            <TextView
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/deltime"
+                android:layout_margin="5dp"
+                android:text="Minimum order of Rs 150."
+                />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toLeftOf="@+id/status"
+                android:layout_toStartOf="@+id/status"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/phone"
+                />
+
+
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>
