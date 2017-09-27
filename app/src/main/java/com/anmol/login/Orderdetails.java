@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anmol.login.Adapters.MyAdapter;
 import com.anmol.login.Model.Media;
@@ -26,9 +27,12 @@ import com.shockwave.pdfium.PdfDocument;
 import com.shockwave.pdfium.PdfiumCore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class Orderdetails extends AppCompatActivity {
@@ -61,6 +65,51 @@ public class Orderdetails extends AppCompatActivity {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                from.child(oid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String uid  = dataSnapshot.child("uid").getValue().toString();
+                        String oid  = dataSnapshot.child("oid").getValue().toString();
+                        final DatabaseReference db =  FirebaseDatabase.getInstance().getReference().child("orders").child("customers").child(uid).child(oid);
+                        final Map<String,Object> map = new HashMap<>();
+                        map.put("status",true);
+                        db.updateChildren(map);
+                        final DatabaseReference cdb = FirebaseDatabase.getInstance().getReference().child("orders").child("chemist");
+                        cdb.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot data:dataSnapshot.getChildren()){
+                                    if (data.getKey().contains(auth.getCurrentUser().getUid())){
+                                        Toast.makeText(Orderdetails.this,data.getKey(),Toast.LENGTH_SHORT).show();
+//                                        String accepted_by = dataSnapshot.child("mname").getValue().toString();
+//                                        String chemistphone = dataSnapshot.child("mcont").getValue().toString();
+//                                        int due = 250;
+//                                        String chemistland = dataSnapshot.child("mlandphone").getValue().toString();
+//                                        map.put("accepted_by",accepted_by);
+//                                        map.put("chemistphone",chemistphone);
+//                                        map.put("chemistland",chemistland);
+//                                        map.put("due",due);
+//                                        db.updateChildren(map);
+
+                                    }
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 movePres(from.child(oid),todata.child(oid));
                 from.child(oid).removeValue();
                 finish();
