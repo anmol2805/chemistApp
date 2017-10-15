@@ -62,68 +62,18 @@ public class Orderdetails extends AppCompatActivity {
         rv = (RecyclerView)findViewById(R.id.rv);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        buy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                from.child(oid).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String uid  = dataSnapshot.child("uid").getValue().toString();
-                        String oid  = dataSnapshot.child("oid").getValue().toString();
-                        final DatabaseReference db =  FirebaseDatabase.getInstance().getReference().child("orders").child("customers").child(uid).child(oid);
-                        final Map<String,Object> map = new HashMap<>();
-                        map.put("status",true);
-                        db.updateChildren(map);
-                        final DatabaseReference cdb = FirebaseDatabase.getInstance().getReference().child("orders").child("chemist");
-                        cdb.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for(DataSnapshot data:dataSnapshot.getChildren()){
-                                    if (data.getKey().contains(auth.getCurrentUser().getUid())){
-                                        Toast.makeText(Orderdetails.this,data.getKey(),Toast.LENGTH_SHORT).show();
-//                                        String accepted_by = dataSnapshot.child("mname").getValue().toString();
-//                                        String chemistphone = dataSnapshot.child("mcont").getValue().toString();
-//                                        int due = 250;
-//                                        String chemistland = dataSnapshot.child("mlandphone").getValue().toString();
-//                                        map.put("accepted_by",accepted_by);
-//                                        map.put("chemistphone",chemistphone);
-//                                        map.put("chemistland",chemistland);
-//                                        map.put("due",due);
-//                                        db.updateChildren(map);
-
-                                    }
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-                movePres(from.child(oid),todata.child(oid));
-                from.child(oid).removeValue();
-                finish();
-            }
-        });
         from.child(oid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String date = dataSnapshot.child("date").getValue().toString();
-                String add = dataSnapshot.child("address").getValue().toString();
-                String des = dataSnapshot.child("description").getValue().toString();
-                ddate.setText(date);
-                dadd.setText(add);
-                ddes.setText(des);
+                if(dataSnapshot!=null){
+                    String date = dataSnapshot.child("date").getValue().toString();
+                    String add = dataSnapshot.child("address").getValue().toString();
+                    String des = dataSnapshot.child("description").getValue().toString();
+                    ddate.setText(date);
+                    dadd.setText(add);
+                    ddes.setText(des);
+                }
+
             }
 
             @Override
@@ -178,6 +128,59 @@ public class Orderdetails extends AppCompatActivity {
             });
 
         }
+        buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                from.child(oid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String uid  = dataSnapshot.child("uid").getValue().toString();
+                        String oid  = dataSnapshot.child("oid").getValue().toString();
+                        final DatabaseReference db =  FirebaseDatabase.getInstance().getReference().child("orders").child("customers").child(uid).child(oid);
+                        final Map<String,Object> map = new HashMap<>();
+                        map.put("status",true);
+                        db.updateChildren(map);
+                        final DatabaseReference cdb = FirebaseDatabase.getInstance().getReference().child("orders").child("chemist");
+                        cdb.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot data:dataSnapshot.getChildren()){
+                                    if (data.getKey().contains(auth.getCurrentUser().getUid())){
+                                        Toast.makeText(Orderdetails.this,data.getKey(),Toast.LENGTH_SHORT).show();
+//                                        String accepted_by = dataSnapshot.child("mname").getValue().toString();
+//                                        String chemistphone = dataSnapshot.child("mcont").getValue().toString();
+//                                        int due = 250;
+//                                        String chemistland = dataSnapshot.child("mlandphone").getValue().toString();
+//                                        map.put("accepted_by",accepted_by);
+//                                        map.put("chemistphone",chemistphone);
+//                                        map.put("chemistland",chemistland);
+//                                        map.put("due",due);
+//                                        db.updateChildren(map);
+
+                                    }
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                movePres(from.child(oid),todata.child(oid));
+                from.child(oid).removeValue();
+                finish();
+            }
+        });
 
     }
     private void movePres(final DatabaseReference fromPath, final DatabaseReference toPath) {
